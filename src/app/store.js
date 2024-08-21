@@ -1,19 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import expensesReducer from '../features/slices/expensesSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    expenses: expensesReducer,
   },
 });
+
 console.log(store.getState());
 
-// Housing
-// Transportation
-// Food & Groceries
-// Purchases
-// Savings
-// Debt & Loans
-// Health & Wellness
-// Entertainment & Leisure
-// Miscellaneous
+export default store;
