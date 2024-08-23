@@ -1,22 +1,39 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { sendExpenseToChatGPT } from './gptAPI';
+import { addExpense } from '../slices/expensesSlice';
 import './GPTInput.css';
 
 export function GPTInput() {
-  // State to hold the input value
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
 
-  // Event handler for input change
   const handleInputChange = (event) => {
-    setInput(event.target.value); // Update the input state with the new value
+    setInput(event.target.value);
   };
 
-  // Function to handle the submission
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('Form submitted');  // Debugging log to ensure the form is submitted
 
-    setInput('');
+    try {
+      const expenseData = await sendExpenseToChatGPT(input);
+      if (expenseData) {
+        dispatch(addExpense(expenseData));
+        console.log(`Item "${expenseData.name}" was successfully added to the category "${expenseData.category}" with a price of $${expenseData.price}.`);
+      } else {
+        console.warn('No expense data returned from ChatGPT.');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 429) {
+        console.error('Quota exceeded:', error.response.data);
+        alert('You have exceeded your API quota. Please check your OpenAI account.');
+      } else {
+        console.error('Error in handleSubmit:', error.response ? error.response.data : error.message);
+      }
+    } finally {
+      setInput(''); // Clear the input field after submission
+    }
   };
 
   return (

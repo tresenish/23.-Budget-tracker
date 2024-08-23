@@ -1,19 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  Housing: [],
+  Transportation: [],
+  FoodAndGroceries: [],
+  Purchases: [],
+  Savings: [],
+  DebtAndLoans: [],
+  HealthAndWellness: [],
+  EntertainmentAndLeisure: [],
+  Miscellaneous: [],
+  History: []
+};
+
 export const expensesSlice = createSlice({
   name: 'expenses',
-  initialState: {
-    Housing: [],
-    Transportation: [],
-    FoodAndGroceries: [],
-    Purchases: [],
-    Savings: [],
-    DebtAndLoans: [],
-    HealthAndWellness: [],
-    EntertainmentAndLeisure: [],
-    Miscellaneous: [],
-    History: []
-  },
+  initialState,
   reducers: {
     addExpense: (state, action) => {
       const { category, name, price } = action.payload;
@@ -23,8 +25,6 @@ export const expensesSlice = createSlice({
 
       // Add to History Slice (FIFO)
       state.History.unshift({ name, price });
-
-
     },
     removeExpense: (state, action) => {
       const { category, name, price } = action.payload;
@@ -45,9 +45,13 @@ export const expensesSlice = createSlice({
         state.History.splice(indexHistory, 1);
       }
     },
+    reset: (state) => {
+      // Reset the state back to initialState
+      Object.assign(state, initialState);
+    },
   },
 });
 
-export const { addExpense, removeExpense, shiftHistory } = expensesSlice.actions;
+export const { addExpense, removeExpense, reset } = expensesSlice.actions;
 
 export default expensesSlice.reducer;
