@@ -18,8 +18,7 @@ export const sendExpenseToChatGPT = async (input) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer tut api kluchik`,
-          // Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
         },
       }
     );
@@ -33,13 +32,13 @@ export const sendExpenseToChatGPT = async (input) => {
 };
 
 const parseChatGPTResponse = (response) => {
-  // Updated regex to account for the dollar sign in the price
-  const regex = /Category:\s*(\w+),\s*Item:\s*(\w+),\s*Price:\s*\$?(\d+)/i;
+  // Updated regex to optionally account for a currency symbol before the price
+  const regex = /Category:\s*(\w+),\s*Item:\s*([\w\s]+),\s*Price:\s*\$?(\d+)/i;
   const match = response.match(regex);
 
   if (match) {
     const category = match[1];
-    const name = match[2];
+    const name = match[2].trim(); // Trim any extra whitespace around the name
     const price = parseFloat(match[3]);
 
     return { category, name, price };

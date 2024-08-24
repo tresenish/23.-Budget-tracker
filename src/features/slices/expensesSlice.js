@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  currency: "$",
   Housing: [],
   Transportation: [],
   FoodAndGroceries: [],
@@ -49,9 +50,12 @@ export const expensesSlice = createSlice({
       // Reset the state back to initialState
       Object.assign(state, initialState);
     },
+    changeCurrency: (state, action) => {
+      state.currency = action.payload;
+    }
   },
 });
 
-export const { addExpense, removeExpense, reset } = expensesSlice.actions;
+export const { addExpense, removeExpense, reset, changeCurrency } = expensesSlice.actions;
 
 export default expensesSlice.reducer;
