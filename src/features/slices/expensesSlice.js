@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { generateRandomItems } from './random';
 
 const initialState = {
   currency: "$",
@@ -20,34 +21,25 @@ export const expensesSlice = createSlice({
   reducers: {
     addExpense: (state, action) => {
       const { category, name, price } = action.payload;
-
-      // Add to Category Slice
       state[category].push({ name, price });
-
-      // Add to History Slice (FIFO)
-      state.History.unshift({ name, price });
+      state.History.unshift({ category, name, price });
     },
     removeExpense: (state, action) => {
       const { category, name, price } = action.payload;
-      
-      // Remove from Category Slice
       const indexCategory = state[category].findIndex(
         (expense) => expense.name === name && expense.price === price
       );
       if (indexCategory !== -1) {
         state[category].splice(indexCategory, 1);
       }
-
-      // Remove from History Slice (Remove specific entry)
       const indexHistory = state.History.findIndex(
-        (expense) => expense.name === name && expense.price === price
+        (expense) => expense.name === name && expense.price === price && expense.category === category
       );
       if (indexHistory !== -1) {
         state.History.splice(indexHistory, 1);
       }
     },
     reset: (state) => {
-      // Reset the state back to initialState
       Object.assign(state, initialState);
     },
     changeCurrency: (state, action) => {
@@ -55,6 +47,14 @@ export const expensesSlice = createSlice({
     }
   },
 });
+
+// Custom action to initialize expenses
+export const initializeExpenses = () => (dispatch) => {
+  const randomItems = generateRandomItems(50);
+  randomItems.forEach(item => {
+    dispatch(expensesSlice.actions.addExpense({ category: item.category, name: item.name, price: item.price }));
+  });
+};
 
 export const { addExpense, removeExpense, reset, changeCurrency } = expensesSlice.actions;
 

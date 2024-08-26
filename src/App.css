@@ -1,23 +1,54 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   background-color: #161616;
   height: 100vh;
+  padding: 1rem;
   color: white;
+  display: grid;
+  grid-template-areas: 
+  "title title title title"
+  "search search history history"
+  "chart chart history history"
+  "info info info info"
+  ;
+  grid-template-rows: auto auto 2fr auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  font-family: "IBM Plex Mono", sans-serif;
+
 }
-#h1-app{
+#navH1{
+  justify-self: start;
+  font-size: 3.5rem;
+  font-weight: 400;
+}
+div#header{
   font-size: 3.5rem; 
+  grid-area: title;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: end;
+  gap: 1rem;
+}
+
+.buttonGroup{
+  height: 3rem;
+  width: 6rem;
+  background-color: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 1rem;
+  cursor: pointer;
 }
 #chartDiv{
-  width: 25%;
-  min-height: 1rem;
-  aspect-ratio: 1/1;
+  grid-area: chart;
   border-radius: 1.5rem;
-  margin: 0 auto;
-
-  background-color: #222;
-
+  /* background-color: #222; */
 }
 #gptDiv{
-  width: 40%;
-  margin: 1rem auto;
+  grid-area: search;
+}
+#historyDiv{
+  grid-area: history;
+
 }

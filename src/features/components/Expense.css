@@ -1,0 +1,13 @@
+#expenseLine{
+    padding: 0.5rem;
+    border-bottom: 1px solid #333;
+}
+span#expenseCategory{
+    color: #999;
+}
+#expenseButton{
+    background-color: transparent;
+    color: white;
+    border: 0;
+    margin-left: 2rem;
+}

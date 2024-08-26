@@ -1,0 +1,12 @@
+div#historyInnerDiv{
+    border-radius: 1rem;
+    color: white;
+    border: 1px solid #555;
+    background-color: #222;
+    text-align: left;
+    font-family: "IBM Plex Mono", sans-serif;
+    font-weight: 300;
+    padding: 0.5rem;
+    outline: none;
+    box-shadow: none;
+}

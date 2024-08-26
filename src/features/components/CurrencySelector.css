@@ -1,8 +1,5 @@
 #currencyInnerDiv{
-    position: absolute;
-    right: 6rem;
-    top: 1rem;
-
+    display: flex;
 }
 select#currency{
     height: 3rem;
