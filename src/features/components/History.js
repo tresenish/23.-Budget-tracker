@@ -13,7 +13,7 @@ export const History = () => {
       <h2>History:</h2>
       {lastTenExpenses.length > 0 ? (
         lastTenExpenses.map((expense, index) => (
-          <Expense key={index} category={expense.category} expense={expense} />
+          <Expense key={index} category={expense.category} expense={expense} displayCategory={true} />
         ))
       ) : (
         <p>No expenses in history.</p>

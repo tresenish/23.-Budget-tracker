@@ -1,37 +1,36 @@
 .App {
-  /* text-align: center; */
-  background-color: #161616;
   height: 100vh;
   padding: 1rem;
   color: white;
   display: grid;
   grid-template-areas: 
-  "title title title title"
-  "search search history history"
-  "chart chart history history"
-  "info info info info"
-  ;
-  grid-template-rows: auto auto 2fr auto;
+    "title title title title"
+    "search search history history"
+    "chart chart history history"
+    "info info info info";
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1rem;
   font-family: "IBM Plex Mono", sans-serif;
-
 }
-#navH1{
-  justify-self: start;
+
+#navH1 {
   font-size: 3.5rem;
   font-weight: 400;
 }
-div#header{
-  font-size: 3.5rem; 
+
+div#header {
   grid-area: title;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: end;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
   gap: 1rem;
 }
 
-.buttonGroup{
+#currencyDiv {
+  justify-self: end;
+}
+
+.buttonGroup {
   height: 3rem;
   width: 6rem;
   background-color: #222;
@@ -39,16 +38,26 @@ div#header{
   border: 1px solid #555;
   border-radius: 1rem;
   cursor: pointer;
+  justify-self: end;
 }
-#chartDiv{
+
+#chartDiv {
   grid-area: chart;
   border-radius: 1.5rem;
-  /* background-color: #222; */
 }
-#gptDiv{
+
+#gptDiv {
   grid-area: search;
 }
-#historyDiv{
+
+#historyDiv {
   grid-area: history;
+}
+#categoryInfoDiv{
+  grid-area: info;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
 
 }

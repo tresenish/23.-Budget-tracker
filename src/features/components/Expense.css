@@ -10,4 +10,8 @@ span#expenseCategory{
     color: white;
     border: 0;
     margin-left: 2rem;
+    cursor: pointer;
+}
+#expenseButton:hover{
+    color: red;
 }

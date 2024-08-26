@@ -4,7 +4,7 @@ import { ResponsivePie } from '@nivo/pie';
 
 export const Chart = () => {
   const expenses = useSelector((state) => state.expenses);
-  const currency = useSelector((state) => state.expenses.currency); // Get the selected currency
+  const currency = useSelector((state) => state.expenses.currency);
 
   const chartData = React.useMemo(() => {
     const data = Object.entries(expenses)
@@ -37,7 +37,7 @@ export const Chart = () => {
         innerRadius={0.5}
         padAngle={1.5}
         cornerRadius={3}
-        colors={{ scheme: 'nivo' }}
+        colors={{ scheme: 'paired' }} 
         borderWidth={1}
         borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
         radialLabelsSkipAngle={10}
@@ -46,7 +46,7 @@ export const Chart = () => {
         sliceLabelsSkipAngle={10}
         sliceLabelsTextColor="#ffffff"
         enableSliceLabels={true}
-        sliceLabel={d => `${currency}${d.value}`} // Use selected currency in slice labels
+        sliceLabel={d => `${currency}${d.value}`} 
         activeOuterRadiusOffset={8}
         motionConfig="wobbly"
         tooltip={({ datum }) => (
@@ -59,7 +59,7 @@ export const Chart = () => {
           }}>
             <strong>{datum.label}</strong>
             <br />
-            Total: {currency}{datum.value.toFixed(2)} {/* Use selected currency in tooltip */}
+            Total: {currency}{datum.value.toFixed(2)}
             <br />
             Percentage: {((datum.value / totalExpenses) * 100).toFixed(2)}%
           </div>
@@ -120,7 +120,7 @@ export const Chart = () => {
                 fill: '#ffffff',
               }}
             >
-              {currency}{totalExpenses.toFixed(2)} {/* Use selected currency in the center */}
+              {currency}{totalExpenses.toFixed(2)}
             </text>
           ),
         ]}

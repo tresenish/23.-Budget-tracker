@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { generateRandomItems } from './random';
+import { generateRandomItems } from './random'; // Ensure the correct path
 
 const initialState = {
   currency: "$",
@@ -22,16 +22,20 @@ export const expensesSlice = createSlice({
     addExpense: (state, action) => {
       const { category, name, price } = action.payload;
       state[category].push({ name, price });
-      state.History.unshift({ category, name, price });
+      state.History.unshift({ name, price, category });
     },
     removeExpense: (state, action) => {
       const { category, name, price } = action.payload;
-      const indexCategory = state[category].findIndex(
-        (expense) => expense.name === name && expense.price === price
-      );
-      if (indexCategory !== -1) {
-        state[category].splice(indexCategory, 1);
+      
+      if (state[category]) {
+        const indexCategory = state[category].findIndex(
+          (expense) => expense.name === name && expense.price === price
+        );
+        if (indexCategory !== -1) {
+          state[category].splice(indexCategory, 1);
+        }
       }
+
       const indexHistory = state.History.findIndex(
         (expense) => expense.name === name && expense.price === price && expense.category === category
       );
@@ -44,18 +48,17 @@ export const expensesSlice = createSlice({
     },
     changeCurrency: (state, action) => {
       state.currency = action.payload;
+    },
+    initializeExpenses: (state) => {
+      const randomItems = generateRandomItems(50); 
+      randomItems.forEach(item => {
+        state[item.category].push({ name: item.name, price: item.price });
+        state.History.unshift({ name: item.name, price: item.price, category: item.category });
+      });
     }
   },
 });
 
-// Custom action to initialize expenses
-export const initializeExpenses = () => (dispatch) => {
-  const randomItems = generateRandomItems(50);
-  randomItems.forEach(item => {
-    dispatch(expensesSlice.actions.addExpense({ category: item.category, name: item.name, price: item.price }));
-  });
-};
-
-export const { addExpense, removeExpense, reset, changeCurrency } = expensesSlice.actions;
+export const { addExpense, removeExpense, reset, changeCurrency, initializeExpenses } = expensesSlice.actions;
 
 export default expensesSlice.reducer;
