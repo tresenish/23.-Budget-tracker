@@ -44,7 +44,7 @@ export function GPTInput() {
         type='text'
         id="gptIn"
         name="gptIn"
-        placeholder="type input here"
+        placeholder="Type expense here"
         value={input}
         onChange={handleInputChange}
       />

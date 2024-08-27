@@ -1,10 +1,12 @@
 .App {
-  height: 100vh;
+  width: 100vw;
   padding: 1rem;
   color: white;
   display: grid;
   grid-template-areas: 
     "title title title title"
+    "instructions instructions instructions instructions"
+    
     "search search history history"
     "chart chart history history"
     "info info info info";
@@ -12,24 +14,63 @@
   gap: 1rem;
   font-family: "IBM Plex Mono", sans-serif;
 }
+@media screen and (max-width: 800px) {
+  .App {
+    padding: 2rem;
+    display: grid;
+    grid-template-areas: 
+      "title title title title"
+    "instructions instructions instructions instructions"
+
+      "search search search search"
+      "chart chart chart chart"
+      "history history history history"
+      "info info info info";
+  }
+}
 
 #navH1 {
   font-size: 3.5rem;
   font-weight: 400;
+  text-wrap: nowrap;
 }
-
+#logoImg{
+  width: 6rem;
+  height: auto;
+}
+@media screen and (max-width: 800px) {
+  #navH1 {
+    font-size: 2.9rem;
+    font-weight: 400;
+    text-wrap: nowrap;
+  }
+}
+@media screen and (max-width: 400px) {
+  #navH1 {
+    font-size: 2.3rem;
+    font-weight: 400;
+    text-wrap: nowrap;
+  }
+}
 div#header {
   grid-area: title;
-  display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 }
-
-#currencyDiv {
-  justify-self: end;
+#buttonsDiv{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: 1rem;
 }
-
+@media screen and (max-width: 800px) {
+  #buttonsDiv {
+    justify-content: space-around;
+  }
+}
 .buttonGroup {
   height: 3rem;
   width: 6rem;
@@ -40,7 +81,10 @@ div#header {
   cursor: pointer;
   justify-self: end;
 }
-
+#instructions{
+  grid-area: instructions;
+  color: #888;
+}
 #chartDiv {
   grid-area: chart;
   border-radius: 1.5rem;
@@ -52,6 +96,7 @@ div#header {
 
 #historyDiv {
   grid-area: history;
+  width: auto;
 }
 #categoryInfoDiv{
   grid-area: info;
